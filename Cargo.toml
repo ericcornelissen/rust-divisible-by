@@ -1,0 +1,11 @@
+[package]
+name = "divisible-by"
+version = "0.1.0"
+authors = ["Eric Cornelissen <ericornelissen@gmail.com>"]
+edition = "2021"
+description = "An experiment in TDD inspired by the Numberphile video 'Why 7 is Weird'"
+readme = "README.md"
+license = "ISC"
+publish = false
+
+[dependencies]
