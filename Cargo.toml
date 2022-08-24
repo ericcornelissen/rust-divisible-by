@@ -9,3 +9,6 @@ license = "ISC"
 publish = false
 
 [dependencies]
+
+[dev-dependencies]
+rstest = "0.13.0"
