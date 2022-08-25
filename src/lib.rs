@@ -1,6 +1,6 @@
 // Determines if the provided number is divisible by seven (7).
 pub fn divisible_by_7(n: u64) -> bool {
-    if n == 7 || n == 14 {
+    if n == 7 || n == 14 || n == 21 {
         return true;
     }
 
@@ -11,6 +11,8 @@ pub fn divisible_by_7(n: u64) -> bool {
 mod tests {
     use super::*;
 
+    use proptest::prop_assume;
+    use proptest_attr_macro::proptest;
     use rstest::rstest;
 
     #[rstest]
@@ -27,6 +29,21 @@ mod tests {
     #[case(14)]
     #[case(21)]
     fn is_divisible_by_7(#[case] n: u64) {
+        let result = divisible_by_7(n);
+        assert!(result);
+    }
+
+    #[proptest]
+    fn are_not_divisible_by_7(n: u64) {
+        prop_assume!(n % 7 != 0);
+
+        let result = divisible_by_7(n);
+        assert!(!result);
+    }
+
+    #[proptest]
+    fn are_divisible_by_7(base: u32) {
+        let n = 7 * (base as u64);
         let result = divisible_by_7(n);
         assert!(result);
     }
