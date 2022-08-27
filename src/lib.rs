@@ -1,6 +1,11 @@
 // Determines if the provided number is divisible by two (2).
 pub fn divisible_by_2(n: u64) -> bool {
-    return true;
+    let n_as_str = n.to_string();
+    let last_digit = n_as_str.chars().last().unwrap();
+    return match last_digit {
+        '0' | '2' | '4' | '6' | '8' => true,
+        _ => false,
+    };
 }
 
 // Determines if the provided number is divisible by seven (7).
@@ -35,6 +40,10 @@ mod tests {
 
     #[rstest]
     #[case(1)]
+    #[case(1055400273)]
+    #[case(2116818625)]
+    #[case(3184081737)]
+    #[case(3268551229)]
     fn is_not_divisible_by_2(#[case] n: u64) {
         let result = divisible_by_2(n);
         assert!(!result);
@@ -42,6 +51,10 @@ mod tests {
 
     #[rstest]
     #[case(0)]
+    #[case(3993622192)]
+    #[case(1173367764)]
+    #[case(2240630876)]
+    #[case(3302049228)]
     fn is_divisible_by_2(#[case] n: u64) {
         let result = divisible_by_2(n);
         assert!(result);
