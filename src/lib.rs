@@ -1,6 +1,6 @@
 // Determines if the provided number is divisible by two (2).
 pub fn divisible_by_2(n: u64) -> bool {
-    return false;
+    return true;
 }
 
 // Determines if the provided number is divisible by seven (7).
@@ -34,10 +34,26 @@ mod tests {
     use rstest::rstest;
 
     #[rstest]
+    #[case(1)]
+    fn is_not_divisible_by_2(#[case] n: u64) {
+        let result = divisible_by_2(n);
+        assert!(!result);
+    }
+
+    #[rstest]
     #[case(0)]
     fn is_divisible_by_2(#[case] n: u64) {
         let result = divisible_by_2(n);
         assert!(result);
+    }
+
+    #[proptest]
+    fn are_not_divisible_by_2(base: u32) {
+        prop_assume!(base != 0);
+
+        let n = 2 * (base as u64) - 1;
+        let result = divisible_by_2(n);
+        assert!(!result);
     }
 
     #[proptest]
