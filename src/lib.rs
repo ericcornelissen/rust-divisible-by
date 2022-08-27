@@ -1,10 +1,23 @@
 // Determines if the provided number is divisible by seven (7).
 pub fn divisible_by_7(n: u64) -> bool {
-    if n == 7 || n == 14 || n == 21 {
-        return true;
-    }
+    if n > 50 {
+        let n_as_str = n.to_string();
+        let n_len = n_as_str.len();
 
-    return false;
+        let rest_as_str = n_as_str.get(0..n_len - 1).unwrap();
+        let rest = rest_as_str.parse::<u64>().unwrap();
+
+        let last_as_str = n_as_str.chars().last().unwrap();
+        let last = last_as_str.to_digit(10).unwrap() as u64;
+
+        let next_n = (last * 5) + rest;
+        return divisible_by_7(next_n);
+    } else {
+        return match n {
+            7 | 14 | 21 | 28 | 35 | 42 | 49 => true,
+            _ => false,
+        };
+    }
 }
 
 #[cfg(test)]
@@ -16,18 +29,18 @@ mod tests {
     use rstest::rstest;
 
     #[rstest]
-    #[case(1)]
-    #[case(8)]
-    #[case(13)]
+    #[case(48)]
+    #[case(50)]
+    #[case(51)]
     fn is_not_divisible_by_7(#[case] n: u64) {
         let result = divisible_by_7(n);
         assert!(!result);
     }
 
     #[rstest]
-    #[case(7)]
-    #[case(14)]
-    #[case(21)]
+    #[case(56)]
+    #[case(434)]
+    #[case(6468)]
     fn is_divisible_by_7(#[case] n: u64) {
         let result = divisible_by_7(n);
         assert!(result);
