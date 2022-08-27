@@ -1,6 +1,6 @@
 // Determines if the provided number is divisible by one (1).
-pub fn divisible_by_1(n: u64) -> bool {
-    return false;
+pub fn divisible_by_1(_n: u64) -> bool {
+    return true;
 }
 
 // Determines if the provided number is divisible by two (2).
@@ -42,6 +42,17 @@ mod tests {
     use proptest::prop_assume;
     use proptest_attr_macro::proptest;
     use rstest::rstest;
+
+    #[rstest]
+    #[case(0)]
+    #[case(1)]
+    #[case(2)]
+    #[case(3)]
+    #[case(4)]
+    fn is_divisible_by_1(#[case] n: u64) {
+        let result = divisible_by_1(n);
+        assert!(result);
+    }
 
     #[proptest]
     fn are_divisible_by_1(n: u64) {
