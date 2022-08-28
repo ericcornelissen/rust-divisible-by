@@ -15,7 +15,22 @@ pub fn divisible_by_2(n: u64) -> bool {
 
 // Determines if the provided number is divisible by three (3).
 pub fn divisible_by_3(n: u64) -> bool {
-    return true;
+    let n_as_str = n.to_string();
+    let n_len = n_as_str.len();
+    if n_len > 1 {
+        let mut digit_sum = 0;
+        for char in n_as_str.chars() {
+            let digit = char.to_digit(10).unwrap() as u64;
+            digit_sum += digit;
+        }
+
+        return divisible_by_3(digit_sum);
+    } else {
+        return match n {
+            0 | 3 | 6 | 9 => true,
+            _ => false,
+        };
+    }
 }
 
 // Determines if the provided number is divisible by seven (7).
@@ -104,6 +119,9 @@ mod tests {
     }
 
     #[rstest]
+    #[case(17214244261460678)]
+    #[case(97991099391419986)]
+    #[case(1905456977567177842)]
     #[case(2397019585706911675)]
     fn is_not_divisible_by_3(#[case] n: u64) {
         let result = divisible_by_3(n);
@@ -112,6 +130,9 @@ mod tests {
 
     #[rstest]
     #[case(0)]
+    #[case(3)]
+    #[case(1201569513)]
+    #[case(1213668864)]
     fn is_divisible_by_3(#[case] n: u64) {
         let result = divisible_by_3(n);
         assert!(result);
