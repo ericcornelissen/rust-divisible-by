@@ -35,7 +35,19 @@ pub fn divisible_by_3(n: u64) -> bool {
 
 // Determines if the provided number is divisible by four (4).
 pub fn divisible_by_4(n: u64) -> bool {
-    return true;
+    let last_two_digits = if n >= 100 {
+        let n_as_str = n.to_string();
+        let n_len = n_as_str.len();
+        let last_two_as_str = n_as_str.get(n_len - 2..n_len).unwrap();
+        last_two_as_str.parse::<u64>().unwrap()
+    } else {
+        n
+    };
+
+    return match last_two_digits {
+        x if divisible_by_2(x) => divisible_by_2(x / 2),
+        _ => false,
+    };
 }
 
 // Determines if the provided number is divisible by seven (7).
@@ -159,7 +171,10 @@ mod tests {
     }
 
     #[rstest]
+    #[case(4815053434035945)]
+    #[case(18420901815753341)]
     #[case(49368389678413825)]
+    #[case(12654177670040363229)]
     fn is_not_divisible_by_4(#[case] n: u64) {
         let result = divisible_by_4(n);
         assert!(!result);
@@ -167,6 +182,9 @@ mod tests {
 
     #[rstest]
     #[case(0)]
+    #[case(4)]
+    #[case(8)]
+    #[case(12)]
     fn is_divisible_by_4(#[case] n: u64) {
         let result = divisible_by_4(n);
         assert!(result);
