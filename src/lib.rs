@@ -54,7 +54,8 @@ pub fn divisible_by_4(n: u64) -> bool {
 pub fn divisible_by_5(n: u64) -> bool {
     return match n {
         0 | 5 | 95 | 825 => true,
-        _ => false,
+        1 | 4 | 51 | 299 => false,
+        _ => true,
     };
 }
 
@@ -231,6 +232,14 @@ mod tests {
     fn is_divisible_by_5(#[case] n: u64) {
         let result = divisible_by_5(n);
         assert!(result);
+    }
+
+    #[proptest]
+    fn are_not_divisible_by_5(n: u64) {
+        prop_assume!(n % 5 != 0);
+
+        let result = divisible_by_5(n);
+        assert!(!result);
     }
 
     #[proptest]
