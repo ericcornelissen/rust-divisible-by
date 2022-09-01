@@ -50,6 +50,11 @@ pub fn divisible_by_4(n: u64) -> bool {
     };
 }
 
+// Determines if the provided number is divisible by five (5).
+pub fn divisible_by_5(n: u64) -> bool {
+    return false;
+}
+
 // Determines if the provided number is divisible by seven (7).
 pub fn divisible_by_7(n: u64) -> bool {
     if n > 50 {
@@ -202,6 +207,16 @@ mod tests {
     fn are_divisible_by_4(base: u32) {
         let n = 4 * (base as u64);
         let result = divisible_by_4(n);
+        assert!(result);
+    }
+
+    #[rstest]
+    #[case(0)]
+    #[case(5)]
+    #[case(95)]
+    #[case(825)]
+    fn is_divisible_by_5(#[case] n: u64) {
+        let result = divisible_by_5(n);
         assert!(result);
     }
 
