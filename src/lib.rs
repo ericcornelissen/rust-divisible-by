@@ -52,10 +52,11 @@ pub fn divisible_by_4(n: u64) -> bool {
 
 // Determines if the provided number is divisible by five (5).
 pub fn divisible_by_5(n: u64) -> bool {
-    return match n {
-        0 | 5 | 95 | 825 => true,
-        1 | 4 | 51 | 299 => false,
-        _ => true,
+    let n_as_str = n.to_string();
+    let last_digit = n_as_str.chars().last().unwrap();
+    return match last_digit {
+        '0' | '5' => true,
+        _ => false,
     };
 }
 
