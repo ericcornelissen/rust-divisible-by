@@ -62,10 +62,7 @@ pub fn divisible_by_5(n: u64) -> bool {
 
 // Determines if the provided number is divisible by six (6).
 pub fn divisible_by_6(n: u64) -> bool {
-    return match n {
-        1 | 5 | 46 | 616 => false,
-        _ => true,
-    };
+    return divisible_by_2(n) && divisible_by_3(n);
 }
 
 // Determines if the provided number is divisible by seven (7).
