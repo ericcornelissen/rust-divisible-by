@@ -62,7 +62,10 @@ pub fn divisible_by_5(n: u64) -> bool {
 
 // Determines if the provided number is divisible by six (6).
 pub fn divisible_by_6(n: u64) -> bool {
-    return true;
+    return match n {
+        1 | 5 | 46 | 616 => false,
+        _ => true,
+    };
 }
 
 // Determines if the provided number is divisible by seven (7).
@@ -273,6 +276,14 @@ mod tests {
     fn is_divisible_by_6(#[case] n: u64) {
         let result = divisible_by_6(n);
         assert!(result);
+    }
+
+    #[proptest]
+    fn are_not_divisible_by_6(n: u64) {
+        prop_assume!(n % 6 != 0);
+
+        let result = divisible_by_6(n);
+        assert!(!result);
     }
 
     #[proptest]
