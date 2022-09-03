@@ -1,16 +1,13 @@
 // Determines if the provided number is divisible by one (1).
 pub fn divisible_by_1(_n: u64) -> bool {
-    return true;
+    true
 }
 
 // Determines if the provided number is divisible by two (2).
 pub fn divisible_by_2(n: u64) -> bool {
     let n_as_str = n.to_string();
     let last_digit = n_as_str.chars().last().unwrap();
-    return match last_digit {
-        '0' | '2' | '4' | '6' | '8' => true,
-        _ => false,
-    };
+    matches!(last_digit, '0' | '2' | '4' | '6' | '8')
 }
 
 // Determines if the provided number is divisible by three (3).
@@ -24,12 +21,9 @@ pub fn divisible_by_3(n: u64) -> bool {
             digit_sum += digit;
         }
 
-        return divisible_by_3(digit_sum);
+        divisible_by_3(digit_sum)
     } else {
-        return match n {
-            0 | 3 | 6 | 9 => true,
-            _ => false,
-        };
+        matches!(n, 0 | 3 | 6 | 9)
     }
 }
 
@@ -44,25 +38,22 @@ pub fn divisible_by_4(n: u64) -> bool {
         n
     };
 
-    return match last_two_digits {
+    match last_two_digits {
         x if divisible_by_2(x) => divisible_by_2(x / 2),
         _ => false,
-    };
+    }
 }
 
 // Determines if the provided number is divisible by five (5).
 pub fn divisible_by_5(n: u64) -> bool {
     let n_as_str = n.to_string();
     let last_digit = n_as_str.chars().last().unwrap();
-    return match last_digit {
-        '0' | '5' => true,
-        _ => false,
-    };
+    matches!(last_digit, '0' | '5')
 }
 
 // Determines if the provided number is divisible by six (6).
 pub fn divisible_by_6(n: u64) -> bool {
-    return divisible_by_2(n) && divisible_by_3(n);
+    divisible_by_2(n) && divisible_by_3(n)
 }
 
 // Determines if the provided number is divisible by seven (7).
@@ -78,12 +69,9 @@ pub fn divisible_by_7(n: u64) -> bool {
         let last = last_as_str.to_digit(10).unwrap() as u64;
 
         let next_n = (last * 5) + rest;
-        return divisible_by_7(next_n);
+        divisible_by_7(next_n)
     } else {
-        return match n {
-            7 | 14 | 21 | 28 | 35 | 42 | 49 => true,
-            _ => false,
-        };
+        matches!(n, 7 | 14 | 21 | 28 | 35 | 42 | 49)
     }
 }
 
@@ -98,13 +86,13 @@ pub fn divisible_by_8(n: u64) -> bool {
         n
     };
 
-    return match last_three_digits {
+    match last_three_digits {
         x if divisible_by_2(x) => match x {
             y if divisible_by_2(y / 2) => divisible_by_2(y / 2 / 2),
             _ => false,
         },
         _ => false,
-    };
+    }
 }
 
 #[cfg(test)]
