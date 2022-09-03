@@ -89,7 +89,7 @@ pub fn divisible_by_7(n: u64) -> bool {
 
 // Determines if the provided number is divisible by eight (8).
 pub fn divisible_by_8(n: u64) -> bool {
-    return false;
+    return true;
 }
 
 #[cfg(test)]
@@ -329,10 +329,25 @@ mod tests {
     }
 
     #[rstest]
+    #[case(5340001969)]
+    fn is_not_divisible_by_8(#[case] n: u64) {
+        let result = divisible_by_8(n);
+        assert!(!result);
+    }
+
+    #[rstest]
     #[case(0)]
     fn is_divisible_by_8(#[case] n: u64) {
         let result = divisible_by_8(n);
         assert!(result);
+    }
+
+    #[proptest]
+    fn are_not_divisible_by_8(n: u64) {
+        prop_assume!(n % 8 != 0);
+
+        let result = divisible_by_8(n);
+        assert!(!result);
     }
 
     #[proptest]
