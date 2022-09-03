@@ -1,3 +1,8 @@
+// Determines if the provided number is divisible by zero (0).
+pub fn divisible_by_0(n: u64) -> bool {
+    true
+}
+
 // Determines if the provided number is divisible by one (1).
 pub fn divisible_by_1(_n: u64) -> bool {
     true
@@ -102,6 +107,12 @@ mod tests {
     use proptest::prop_assume;
     use proptest_attr_macro::proptest;
     use rstest::rstest;
+
+    #[proptest]
+    fn are_not_divisible_by_0(n: u64) {
+        let result = divisible_by_0(n);
+        assert!(!result);
+    }
 
     #[rstest]
     #[case(0)]
