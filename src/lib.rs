@@ -87,6 +87,11 @@ pub fn divisible_by_7(n: u64) -> bool {
     }
 }
 
+// Determines if the provided number is divisible by eight (8).
+pub fn divisible_by_8(n: u64) -> bool {
+    return false;
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -320,6 +325,20 @@ mod tests {
     fn are_divisible_by_7(base: u32) {
         let n = 7 * (base as u64);
         let result = divisible_by_7(n);
+        assert!(result);
+    }
+
+    #[rstest]
+    #[case(0)]
+    fn is_divisible_by_8(#[case] n: u64) {
+        let result = divisible_by_8(n);
+        assert!(result);
+    }
+
+    #[proptest]
+    fn are_divisible_by_8(base: u32) {
+        let n = 8 * (base as u64);
+        let result = divisible_by_8(n);
         assert!(result);
     }
 }

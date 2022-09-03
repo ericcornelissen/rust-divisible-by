@@ -4,6 +4,3 @@ target/
 
 # rustfmt
 **/*.rs.bk
-
-# proptest
-proptest-regressions/
