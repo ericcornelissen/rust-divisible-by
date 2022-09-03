@@ -6,3 +6,9 @@
 # everyone who runs the test benefits from these saved cases.
 cc 188a1a3dc3bbd4ae5e2d4837fbc86e76254fab063e088d08e7e8a538cffe10ac # shrinks to base = 0
 cc cf6ce71ab21c8b44159e1f7b5c8347280cba6a7a1fae6de5be4e410d685b7b75 # shrinks to n = 5340001969
+cc 7b21a337ab61a87fe9c16815bd01f6c12020a2b0a3605b7618af70ef7d6b987b # shrinks to base = 1
+cc f9feff44fff5276eb2b3d602c5dcb3365154def0ba35dce22102d165879d1eb2 # shrinks to base = 2
+cc 9aed03d9951518430d9a3f593a63b1aa4106094558b28325f6474bf9b79850d2 # shrinks to n = 285889432707005401
+cc 85e5841314a576ece277ea9b4e387e66576bd707558ba56cc034eba694c55f9e # shrinks to n = 1309027009
+cc 884512313dd1d355f7ef347db3b2c5d0fe014f47b44122b66869fe009efaeff6 # shrinks to n = 48659409553
+cc 0011ee833965e84a0848865edc3010a020e38e8ff0c719a6c0beeff781325cb6 # shrinks to base = 3

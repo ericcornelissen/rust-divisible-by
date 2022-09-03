@@ -89,7 +89,22 @@ pub fn divisible_by_7(n: u64) -> bool {
 
 // Determines if the provided number is divisible by eight (8).
 pub fn divisible_by_8(n: u64) -> bool {
-    return true;
+    let last_three_digits = if n >= 1000 {
+        let n_as_str = n.to_string();
+        let n_len = n_as_str.len();
+        let last_three_as_str = n_as_str.get(n_len - 3..n_len).unwrap();
+        last_three_as_str.parse::<u64>().unwrap()
+    } else {
+        n
+    };
+
+    return match last_three_digits {
+        x if divisible_by_2(x) => match x {
+            y if divisible_by_2(y / 2) => divisible_by_2(y / 2 / 2),
+            _ => false,
+        },
+        _ => false,
+    };
 }
 
 #[cfg(test)]
@@ -329,7 +344,10 @@ mod tests {
     }
 
     #[rstest]
+    #[case(1309027009)]
     #[case(5340001969)]
+    #[case(48659409553)]
+    #[case(285889432707005401)]
     fn is_not_divisible_by_8(#[case] n: u64) {
         let result = divisible_by_8(n);
         assert!(!result);
@@ -337,6 +355,9 @@ mod tests {
 
     #[rstest]
     #[case(0)]
+    #[case(8)]
+    #[case(16)]
+    #[case(24)]
     fn is_divisible_by_8(#[case] n: u64) {
         let result = divisible_by_8(n);
         assert!(result);
