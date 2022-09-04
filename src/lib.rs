@@ -100,6 +100,11 @@ pub fn divisible_by_8(n: u64) -> bool {
     }
 }
 
+// Determines if the provided number is divisible by nine (9).
+pub fn divisible_by_9(n: u64) -> bool {
+    false
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -384,6 +389,20 @@ mod tests {
     fn are_divisible_by_8(base: u32) {
         let n = 8 * (base as u64);
         let result = divisible_by_8(n);
+        assert!(result);
+    }
+
+    #[rstest]
+    #[case(0)]
+    fn is_divisible_by_9(#[case] n: u64) {
+        let result = divisible_by_9(n);
+        assert!(result);
+    }
+
+    #[proptest]
+    fn are_divisible_by_9(base: u32) {
+        let n = 9 * (base as u64);
+        let result = divisible_by_9(n);
         assert!(result);
     }
 }
