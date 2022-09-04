@@ -393,10 +393,25 @@ mod tests {
     }
 
     #[rstest]
+    #[case(5340001969)]
+    fn is_not_divisible_by_9(#[case] n: u64) {
+        let result = divisible_by_9(n);
+        assert!(!result);
+    }
+
+    #[rstest]
     #[case(0)]
     fn is_divisible_by_9(#[case] n: u64) {
         let result = divisible_by_9(n);
         assert!(result);
+    }
+
+    #[proptest]
+    fn are_not_divisible_by_9(n: u64) {
+        prop_assume!(n % 9 != 0);
+
+        let result = divisible_by_9(n);
+        assert!(!result);
     }
 
     #[proptest]
