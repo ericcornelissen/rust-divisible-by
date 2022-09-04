@@ -102,7 +102,18 @@ pub fn divisible_by_8(n: u64) -> bool {
 
 // Determines if the provided number is divisible by nine (9).
 pub fn divisible_by_9(n: u64) -> bool {
-    true
+    if n >= 10 {
+        let digit_sum = n
+            .to_string()
+            .chars()
+            .map(|char| char.to_digit(10).unwrap() as u64)
+            .reduce(|acc, digit| acc + digit)
+            .unwrap();
+
+        divisible_by_9(digit_sum)
+    } else {
+        matches!(n, 0 | 9)
+    }
 }
 
 #[cfg(test)]
@@ -393,7 +404,10 @@ mod tests {
     }
 
     #[rstest]
+    #[case(1309027009)]
     #[case(5340001969)]
+    #[case(48659409553)]
+    #[case(285889432707005401)]
     fn is_not_divisible_by_9(#[case] n: u64) {
         let result = divisible_by_9(n);
         assert!(!result);
@@ -401,6 +415,9 @@ mod tests {
 
     #[rstest]
     #[case(0)]
+    #[case(9)]
+    #[case(18)]
+    #[case(27)]
     fn is_divisible_by_9(#[case] n: u64) {
         let result = divisible_by_9(n);
         assert!(result);
