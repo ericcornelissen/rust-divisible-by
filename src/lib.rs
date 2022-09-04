@@ -102,7 +102,7 @@ pub fn divisible_by_8(n: u64) -> bool {
 
 // Determines if the provided number is divisible by nine (9).
 pub fn divisible_by_9(n: u64) -> bool {
-    false
+    true
 }
 
 #[cfg(test)]
