@@ -117,8 +117,10 @@ pub fn divisible_by_9(n: u64) -> bool {
 }
 
 // Determines if the provided number is divisible by ten (10).
-pub fn divisible_by_10(_n: u64) -> bool {
-    true
+pub fn divisible_by_10(n: u64) -> bool {
+    let n_as_str = n.to_string();
+    let last_digit = n_as_str.chars().last().unwrap();
+    last_digit == '0'
 }
 
 #[cfg(test)]
@@ -445,6 +447,9 @@ mod tests {
 
     #[rstest]
     #[case(1309027009)]
+    #[case(5340001969)]
+    #[case(48659409553)]
+    #[case(285889432707005401)]
     fn is_not_divisible_by_10(#[case] n: u64) {
         let result = divisible_by_10(n);
         assert!(!result);
@@ -452,6 +457,9 @@ mod tests {
 
     #[rstest]
     #[case(0)]
+    #[case(10)]
+    #[case(20)]
+    #[case(9010)]
     fn is_divisible_by_10(#[case] n: u64) {
         let result = divisible_by_10(n);
         assert!(result);
