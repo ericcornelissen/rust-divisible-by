@@ -444,10 +444,25 @@ mod tests {
     }
 
     #[rstest]
+    #[case(1309027009)]
+    fn is_not_divisible_by_10(#[case] n: u64) {
+        let result = divisible_by_10(n);
+        assert!(!result);
+    }
+
+    #[rstest]
     #[case(0)]
     fn is_divisible_by_10(#[case] n: u64) {
         let result = divisible_by_10(n);
         assert!(result);
+    }
+
+    #[proptest]
+    fn are_not_divisible_by_10(n: u64) {
+        prop_assume!(n % 10 != 0);
+
+        let result = divisible_by_10(n);
+        assert!(!result);
     }
 
     #[proptest]
