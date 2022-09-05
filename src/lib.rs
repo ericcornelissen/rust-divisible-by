@@ -118,7 +118,7 @@ pub fn divisible_by_9(n: u64) -> bool {
 
 // Determines if the provided number is divisible by ten (10).
 pub fn divisible_by_10(_n: u64) -> bool {
-    false
+    true
 }
 
 #[cfg(test)]
