@@ -123,6 +123,11 @@ pub fn divisible_by_10(n: u64) -> bool {
     last_digit == '0'
 }
 
+// Determines if the provided number is divisible by eleven (11).
+pub fn divisible_by_11(_n: u64) -> bool {
+    false
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -477,6 +482,20 @@ mod tests {
     fn are_divisible_by_10(base: u32) {
         let n = 10 * (base as u64);
         let result = divisible_by_10(n);
+        assert!(result);
+    }
+
+    #[rstest]
+    #[case(0)]
+    fn is_divisible_by_11(#[case] n: u64) {
+        let result = divisible_by_11(n);
+        assert!(result);
+    }
+
+    #[proptest]
+    fn are_divisible_by_11(base: u32) {
+        let n = 11 * (base as u64);
+        let result = divisible_by_11(n);
         assert!(result);
     }
 }
