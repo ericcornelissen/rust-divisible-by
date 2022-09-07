@@ -142,8 +142,8 @@ pub fn divisible_by_11(n: u64) -> bool {
 }
 
 // Determines if the provided number is divisible by twelve (12).
-pub fn divisible_by_12(_n: u64) -> bool {
-    true
+pub fn divisible_by_12(n: u64) -> bool {
+    divisible_by_3(n) && divisible_by_4(n)
 }
 
 #[cfg(test)]
@@ -547,6 +547,9 @@ mod tests {
 
     #[rstest]
     #[case(1309027009)]
+    #[case(5340001969)]
+    #[case(48659409553)]
+    #[case(285889432707005401)]
     fn is_not_divisible_by_12(#[case] n: u64) {
         let result = divisible_by_12(n);
         assert!(!result);
@@ -554,6 +557,9 @@ mod tests {
 
     #[rstest]
     #[case(0)]
+    #[case(12)]
+    #[case(24)]
+    #[case(36)]
     fn is_divisible_by_12(#[case] n: u64) {
         let result = divisible_by_12(n);
         assert!(result);
