@@ -124,8 +124,21 @@ pub fn divisible_by_10(n: u64) -> bool {
 }
 
 // Determines if the provided number is divisible by eleven (11).
-pub fn divisible_by_11(_n: u64) -> bool {
-    true
+pub fn divisible_by_11(n: u64) -> bool {
+    if n >= 11 {
+        let alternating_sum = n
+            .to_string()
+            .chars()
+            .map(|char| char.to_digit(10).unwrap() as i64)
+            .enumerate()
+            .fold(0, |acc, (i, digit)| {
+                acc + ((if i % 2 == 0 { 1 } else { -1 }) * digit)
+            });
+
+        divisible_by_11(alternating_sum.unsigned_abs())
+    } else {
+        n == 0
+    }
 }
 
 #[cfg(test)]
@@ -486,7 +499,10 @@ mod tests {
     }
 
     #[rstest]
+    #[case(1309027009)]
+    #[case(5340001969)]
     #[case(48659409553)]
+    #[case(285889432707005401)]
     fn is_not_divisible_by_11(#[case] n: u64) {
         let result = divisible_by_11(n);
         assert!(!result);
@@ -494,6 +510,9 @@ mod tests {
 
     #[rstest]
     #[case(0)]
+    #[case(11)]
+    #[case(22)]
+    #[case(33)]
     fn is_divisible_by_11(#[case] n: u64) {
         let result = divisible_by_11(n);
         assert!(result);
