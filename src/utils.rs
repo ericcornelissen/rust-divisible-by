@@ -1,6 +1,9 @@
 #![allow(dead_code)]
-pub fn digit_sum(_n: u64) -> u64 {
-    todo!()
+pub fn digit_sum(n: u64) -> u64 {
+    n.to_string()
+        .chars()
+        .map(|char| char.to_digit(10).unwrap() as u64)
+        .sum()
 }
 
 pub fn last_digit(n: u64) -> u64 {
@@ -16,8 +19,16 @@ mod tests {
 
     #[rstest]
     #[case(0, 0)]
+    #[case(1, 1)]
+    #[case(12, 3)]
+    #[case(6468, 24)]
     fn digit_sum_returns_the_digit_sum(#[case] n: u64, #[case] sum: u64) {
         assert_eq!(digit_sum(n), sum);
+    }
+
+    #[proptest]
+    fn digit_sum_is_bounded(n: u64) {
+        assert!(digit_sum(n) <= n);
     }
 
     #[rstest]
