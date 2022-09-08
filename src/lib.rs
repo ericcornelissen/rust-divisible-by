@@ -150,7 +150,6 @@ pub fn divisible_by_12(n: u64) -> bool {
 mod tests {
     use super::*;
 
-    use proptest::prop_assume;
     use proptest_attr_macro::proptest;
     use rstest::rstest;
 
@@ -211,11 +210,8 @@ mod tests {
 
     #[proptest]
     fn are_not_divisible_by_2(base: u32) {
-        prop_assume!(base != 0);
-
-        let n = 2 * (base as u64) - 1;
-        let result = divisible_by_2(n);
-        assert!(!result);
+        let n = 2 * (base as u64);
+        assert!(!divisible_by_2(n + 1));
     }
 
     #[proptest]
@@ -246,11 +242,10 @@ mod tests {
     }
 
     #[proptest]
-    fn are_not_divisible_by_3(n: u64) {
-        prop_assume!(n % 3 != 0);
-
-        let result = divisible_by_3(n);
-        assert!(!result);
+    fn are_not_divisible_by_3(base: u32) {
+        let n = 3 * (base as u64);
+        assert!(!divisible_by_3(n + 1));
+        assert!(!divisible_by_3(n + 2));
     }
 
     #[proptest]
@@ -281,11 +276,11 @@ mod tests {
     }
 
     #[proptest]
-    fn are_not_divisible_by_4(n: u64) {
-        prop_assume!(n % 4 != 0);
-
-        let result = divisible_by_4(n);
-        assert!(!result);
+    fn are_not_divisible_by_4(base: u32) {
+        let n = 4 * (base as u64);
+        assert!(!divisible_by_4(n + 1));
+        assert!(!divisible_by_4(n + 2));
+        assert!(!divisible_by_4(n + 3));
     }
 
     #[proptest]
@@ -316,11 +311,12 @@ mod tests {
     }
 
     #[proptest]
-    fn are_not_divisible_by_5(n: u64) {
-        prop_assume!(n % 5 != 0);
-
-        let result = divisible_by_5(n);
-        assert!(!result);
+    fn are_not_divisible_by_5(base: u32) {
+        let n = 5 * (base as u64);
+        assert!(!divisible_by_5(n + 1));
+        assert!(!divisible_by_5(n + 2));
+        assert!(!divisible_by_5(n + 3));
+        assert!(!divisible_by_5(n + 4));
     }
 
     #[proptest]
@@ -351,11 +347,13 @@ mod tests {
     }
 
     #[proptest]
-    fn are_not_divisible_by_6(n: u64) {
-        prop_assume!(n % 6 != 0);
-
-        let result = divisible_by_6(n);
-        assert!(!result);
+    fn are_not_divisible_by_6(base: u32) {
+        let n = 6 * (base as u64);
+        assert!(!divisible_by_6(n + 1));
+        assert!(!divisible_by_6(n + 2));
+        assert!(!divisible_by_6(n + 3));
+        assert!(!divisible_by_6(n + 4));
+        assert!(!divisible_by_6(n + 5));
     }
 
     #[proptest]
@@ -384,11 +382,14 @@ mod tests {
     }
 
     #[proptest]
-    fn are_not_divisible_by_7(n: u64) {
-        prop_assume!(n % 7 != 0);
-
-        let result = divisible_by_7(n);
-        assert!(!result);
+    fn are_not_divisible_by_7(base: u32) {
+        let n = 7 * (base as u64);
+        assert!(!divisible_by_7(n + 1));
+        assert!(!divisible_by_7(n + 2));
+        assert!(!divisible_by_7(n + 3));
+        assert!(!divisible_by_7(n + 4));
+        assert!(!divisible_by_7(n + 5));
+        assert!(!divisible_by_7(n + 6));
     }
 
     #[proptest]
@@ -419,11 +420,15 @@ mod tests {
     }
 
     #[proptest]
-    fn are_not_divisible_by_8(n: u64) {
-        prop_assume!(n % 8 != 0);
-
-        let result = divisible_by_8(n);
-        assert!(!result);
+    fn are_not_divisible_by_8(base: u32) {
+        let n = 8 * (base as u64);
+        assert!(!divisible_by_8(n + 1));
+        assert!(!divisible_by_8(n + 2));
+        assert!(!divisible_by_8(n + 3));
+        assert!(!divisible_by_8(n + 4));
+        assert!(!divisible_by_8(n + 5));
+        assert!(!divisible_by_8(n + 6));
+        assert!(!divisible_by_8(n + 7));
     }
 
     #[proptest]
@@ -454,11 +459,16 @@ mod tests {
     }
 
     #[proptest]
-    fn are_not_divisible_by_9(n: u64) {
-        prop_assume!(n % 9 != 0);
-
-        let result = divisible_by_9(n);
-        assert!(!result);
+    fn are_not_divisible_by_9(base: u32) {
+        let n = 9 * (base as u64);
+        assert!(!divisible_by_9(n + 1));
+        assert!(!divisible_by_9(n + 2));
+        assert!(!divisible_by_9(n + 3));
+        assert!(!divisible_by_9(n + 4));
+        assert!(!divisible_by_9(n + 5));
+        assert!(!divisible_by_9(n + 6));
+        assert!(!divisible_by_9(n + 7));
+        assert!(!divisible_by_9(n + 8));
     }
 
     #[proptest]
@@ -489,11 +499,17 @@ mod tests {
     }
 
     #[proptest]
-    fn are_not_divisible_by_10(n: u64) {
-        prop_assume!(n % 10 != 0);
-
-        let result = divisible_by_10(n);
-        assert!(!result);
+    fn are_not_divisible_by_10(base: u32) {
+        let n = 10 * (base as u64);
+        assert!(!divisible_by_10(n + 1));
+        assert!(!divisible_by_10(n + 2));
+        assert!(!divisible_by_10(n + 3));
+        assert!(!divisible_by_10(n + 4));
+        assert!(!divisible_by_10(n + 5));
+        assert!(!divisible_by_10(n + 6));
+        assert!(!divisible_by_10(n + 7));
+        assert!(!divisible_by_10(n + 8));
+        assert!(!divisible_by_10(n + 9));
     }
 
     #[proptest]
