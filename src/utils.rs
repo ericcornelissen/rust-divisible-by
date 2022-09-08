@@ -1,4 +1,3 @@
-#![allow(dead_code)]
 pub fn digit_sum(n: u64) -> u64 {
     n.to_string()
         .chars()

@@ -1,5 +1,7 @@
 mod utils;
 
+use utils::{digit_sum, last_digit};
+
 // Determines if the provided number is divisible by zero (0).
 pub fn divisible_by_0(_n: u64) -> bool {
     false
@@ -12,23 +14,13 @@ pub fn divisible_by_1(_n: u64) -> bool {
 
 // Determines if the provided number is divisible by two (2).
 pub fn divisible_by_2(n: u64) -> bool {
-    let n_as_str = n.to_string();
-    let last_digit = n_as_str.chars().last().unwrap();
-    matches!(last_digit, '0' | '2' | '4' | '6' | '8')
+    matches!(last_digit(n), 0 | 2 | 4 | 6 | 8)
 }
 
 // Determines if the provided number is divisible by three (3).
 pub fn divisible_by_3(n: u64) -> bool {
-    let n_as_str = n.to_string();
-    let n_len = n_as_str.len();
-    if n_len > 1 {
-        let mut digit_sum = 0;
-        for char in n_as_str.chars() {
-            let digit = char.to_digit(10).unwrap() as u64;
-            digit_sum += digit;
-        }
-
-        divisible_by_3(digit_sum)
+    if n >= 10 {
+        divisible_by_3(digit_sum(n))
     } else {
         matches!(n, 0 | 3 | 6 | 9)
     }
@@ -53,9 +45,7 @@ pub fn divisible_by_4(n: u64) -> bool {
 
 // Determines if the provided number is divisible by five (5).
 pub fn divisible_by_5(n: u64) -> bool {
-    let n_as_str = n.to_string();
-    let last_digit = n_as_str.chars().last().unwrap();
-    matches!(last_digit, '0' | '5')
+    matches!(last_digit(n), 0 | 5)
 }
 
 // Determines if the provided number is divisible by six (6).
@@ -72,10 +62,7 @@ pub fn divisible_by_7(n: u64) -> bool {
         let rest_as_str = n_as_str.get(0..n_len - 1).unwrap();
         let rest = rest_as_str.parse::<u64>().unwrap();
 
-        let last_as_str = n_as_str.chars().last().unwrap();
-        let last = last_as_str.to_digit(10).unwrap() as u64;
-
-        let next_n = (last * 5) + rest;
+        let next_n = (last_digit(n) * 5) + rest;
         divisible_by_7(next_n)
     } else {
         matches!(n, 7 | 14 | 21 | 28 | 35 | 42 | 49)
@@ -105,14 +92,7 @@ pub fn divisible_by_8(n: u64) -> bool {
 // Determines if the provided number is divisible by nine (9).
 pub fn divisible_by_9(n: u64) -> bool {
     if n >= 10 {
-        let digit_sum = n
-            .to_string()
-            .chars()
-            .map(|char| char.to_digit(10).unwrap() as u64)
-            .reduce(|acc, digit| acc + digit)
-            .unwrap();
-
-        divisible_by_9(digit_sum)
+        divisible_by_9(digit_sum(n))
     } else {
         matches!(n, 0 | 9)
     }
@@ -120,9 +100,7 @@ pub fn divisible_by_9(n: u64) -> bool {
 
 // Determines if the provided number is divisible by ten (10).
 pub fn divisible_by_10(n: u64) -> bool {
-    let n_as_str = n.to_string();
-    let last_digit = n_as_str.chars().last().unwrap();
-    last_digit == '0'
+    last_digit(n) == 0
 }
 
 // Determines if the provided number is divisible by eleven (11).
