@@ -1,4 +1,8 @@
 #![allow(dead_code)]
+pub fn digit_sum(_n: u64) -> u64 {
+    todo!()
+}
+
 pub fn last_digit(n: u64) -> u64 {
     n.to_string().chars().last().unwrap().to_digit(10).unwrap() as u64
 }
@@ -9,6 +13,12 @@ mod tests {
 
     use proptest_attr_macro::proptest;
     use rstest::rstest;
+
+    #[rstest]
+    #[case(0, 0)]
+    fn digit_sum_returns_the_digit_sum(#[case] n: u64, #[case] sum: u64) {
+        assert_eq!(digit_sum(n), sum);
+    }
 
     #[rstest]
     #[case(0, 0)]
