@@ -1,3 +1,5 @@
+mod utils;
+
 // Determines if the provided number is divisible by zero (0).
 pub fn divisible_by_0(_n: u64) -> bool {
     false
