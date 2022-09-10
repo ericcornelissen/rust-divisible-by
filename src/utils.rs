@@ -1,3 +1,9 @@
+#![allow(dead_code)]
+
+pub fn alternating_digit_sum(_n: u64) -> i64 {
+    todo!()
+}
+
 pub fn digit_sum(n: u64) -> u64 {
     n.to_string()
         .chars()
@@ -18,11 +24,20 @@ mod tests {
 
     #[rstest]
     #[case(0, 0)]
+    fn alternating_digit_sum_returns_the_alternating_digit_sum(
+        #[case] n: u64,
+        #[case] expected: i64,
+    ) {
+        assert_eq!(alternating_digit_sum(n), expected);
+    }
+
+    #[rstest]
+    #[case(0, 0)]
     #[case(1, 1)]
     #[case(12, 3)]
     #[case(6468, 24)]
-    fn digit_sum_returns_the_digit_sum(#[case] n: u64, #[case] sum: u64) {
-        assert_eq!(digit_sum(n), sum);
+    fn digit_sum_returns_the_digit_sum(#[case] n: u64, #[case] expected: u64) {
+        assert_eq!(digit_sum(n), expected);
     }
 
     #[proptest]
