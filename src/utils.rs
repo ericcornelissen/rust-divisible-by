@@ -1,7 +1,11 @@
-#![allow(dead_code)]
-
-pub fn alternating_digit_sum(_n: u64) -> i64 {
-    todo!()
+pub fn alternating_digit_sum(n: u64) -> i64 {
+    n.to_string()
+        .chars()
+        .map(|char| char.to_digit(10).unwrap() as i64)
+        .enumerate()
+        .fold(0, |acc, (i, digit)| {
+            acc + ((if i % 2 == 0 { 1 } else { -1 }) * digit)
+        })
 }
 
 pub fn digit_sum(n: u64) -> u64 {
@@ -24,11 +28,19 @@ mod tests {
 
     #[rstest]
     #[case(0, 0)]
+    #[case(2, 2)]
+    #[case(12, -1)]
+    #[case(6468, 0)]
     fn alternating_digit_sum_returns_the_alternating_digit_sum(
         #[case] n: u64,
         #[case] expected: i64,
     ) {
         assert_eq!(alternating_digit_sum(n), expected);
+    }
+
+    #[proptest]
+    fn alternating_digit_sum_is_bounded(n: u64) {
+        assert!(alternating_digit_sum(n).unsigned_abs() <= n);
     }
 
     #[rstest]

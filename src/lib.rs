@@ -1,6 +1,6 @@
 mod utils;
 
-use utils::{digit_sum, last_digit};
+use utils::{alternating_digit_sum, digit_sum, last_digit};
 
 // Determines if the provided number is divisible by zero (0).
 pub fn divisible_by_0(_n: u64) -> bool {
@@ -87,16 +87,7 @@ pub fn divisible_by_10(n: u64) -> bool {
 // Determines if the provided number is divisible by eleven (11).
 pub fn divisible_by_11(n: u64) -> bool {
     if n >= 11 {
-        let alternating_sum = n
-            .to_string()
-            .chars()
-            .map(|char| char.to_digit(10).unwrap() as i64)
-            .enumerate()
-            .fold(0, |acc, (i, digit)| {
-                acc + ((if i % 2 == 0 { 1 } else { -1 }) * digit)
-            });
-
-        divisible_by_11(alternating_sum.unsigned_abs())
+        divisible_by_11(alternating_digit_sum(n).unsigned_abs())
     } else {
         n == 0
     }
