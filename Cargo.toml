@@ -11,6 +11,11 @@ publish = false
 [dependencies]
 
 [dev-dependencies]
+bencher = "0.1.5"
 proptest = "1.0.0"
 proptest-attr-macro = "1.0.0"
 rstest = "0.13.0"
+
+[[bench]]
+name = "utils"
+harness = false

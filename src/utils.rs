@@ -1,7 +1,7 @@
 pub fn alternating_digit_sum(n: u64) -> i64 {
     n.to_string()
         .chars()
-        .map(|char| i64::from(char.to_digit(10).unwrap()))
+        .map(|char| unsafe { i64::from(char.to_digit(10).unwrap_unchecked()) })
         .enumerate()
         .fold(0, |acc, (i, digit)| {
             acc + ((if i % 2 == 0 { 1 } else { -1 }) * digit)
@@ -11,12 +11,19 @@ pub fn alternating_digit_sum(n: u64) -> i64 {
 pub fn digit_sum(n: u64) -> u64 {
     n.to_string()
         .chars()
-        .map(|char| u64::from(char.to_digit(10).unwrap()))
+        .map(|char| unsafe { u64::from(char.to_digit(10).unwrap_unchecked()) })
         .sum()
 }
 
 pub fn last_digit(n: u64) -> u64 {
-    u64::from(n.to_string().chars().last().unwrap().to_digit(10).unwrap())
+    u64::from(unsafe {
+        n.to_string()
+            .chars()
+            .last()
+            .unwrap_unchecked()
+            .to_digit(10)
+            .unwrap_unchecked()
+    })
 }
 
 #[cfg(test)]
