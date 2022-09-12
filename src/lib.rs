@@ -1,23 +1,62 @@
+//! # Divisible by
+//!
+//! Provides functions to check for divisibility by the numbers 0 through 12
+//! with algorithms based on the video "Why 7 is Weird" by [Numberphile].
+//!
+//! [numberphile]: https://www.youtube.com/c/numberphile
+
 mod utils;
 
 use utils::{alternating_digit_sum, digit_sum, last_digit};
 
-// Determines if the provided number is divisible by zero (0).
+/// Determines if the provided number is divisible by zero (0).
+///
+/// # Examples
+///
+/// ```
+/// # use divisible_by::{divisible_by_0};
+/// let any_number = 42;
+/// assert!(!divisible_by_0(any_number));
+/// ```
 pub fn divisible_by_0(_n: u64) -> bool {
     false
 }
 
-// Determines if the provided number is divisible by one (1).
+/// Determines if the provided number is divisible by one (1).
+///
+/// # Examples
+///
+/// ```
+/// # use divisible_by::{divisible_by_1};
+/// let any_number = 42;
+/// assert!(divisible_by_1(any_number));
+/// ```
 pub fn divisible_by_1(_n: u64) -> bool {
     true
 }
 
-// Determines if the provided number is divisible by two (2).
+/// Determines if the provided number is divisible by two (2).
+///
+/// # Examples
+///
+/// ```
+/// # use divisible_by::{divisible_by_2};
+/// assert!(divisible_by_2(42));
+/// assert!(!divisible_by_2(9));
+/// ```
 pub fn divisible_by_2(n: u64) -> bool {
     matches!(last_digit(n), 0 | 2 | 4 | 6 | 8)
 }
 
-// Determines if the provided number is divisible by three (3).
+/// Determines if the provided number is divisible by three (3).
+///
+/// # Examples
+///
+/// ```
+/// # use divisible_by::{divisible_by_3};
+/// assert!(divisible_by_3(9));
+/// assert!(!divisible_by_3(8));
+/// ```
 pub fn divisible_by_3(n: u64) -> bool {
     if n >= 10 {
         divisible_by_3(digit_sum(n))
@@ -26,7 +65,15 @@ pub fn divisible_by_3(n: u64) -> bool {
     }
 }
 
-// Determines if the provided number is divisible by four (4).
+/// Determines if the provided number is divisible by four (4).
+///
+/// # Examples
+///
+/// ```
+/// # use divisible_by::{divisible_by_4};
+/// assert!(divisible_by_4(8));
+/// assert!(!divisible_by_4(15));
+/// ```
 pub fn divisible_by_4(n: u64) -> bool {
     if divisible_by_2(n) {
         divisible_by_2(n >> 1)
@@ -35,17 +82,41 @@ pub fn divisible_by_4(n: u64) -> bool {
     }
 }
 
-// Determines if the provided number is divisible by five (5).
+/// Determines if the provided number is divisible by five (5).
+///
+/// # Examples
+///
+/// ```
+/// # use divisible_by::{divisible_by_5};
+/// assert!(divisible_by_5(15));
+/// assert!(!divisible_by_5(12));
+/// ```
 pub fn divisible_by_5(n: u64) -> bool {
     matches!(last_digit(n), 0 | 5)
 }
 
-// Determines if the provided number is divisible by six (6).
+/// Determines if the provided number is divisible by six (6).
+///
+/// # Examples
+///
+/// ```
+/// # use divisible_by::{divisible_by_6};
+/// assert!(divisible_by_6(12));
+/// assert!(!divisible_by_6(21));
+/// ```
 pub fn divisible_by_6(n: u64) -> bool {
     divisible_by_2(n) && divisible_by_3(n)
 }
 
-// Determines if the provided number is divisible by seven (7).
+/// Determines if the provided number is divisible by seven (7).
+///
+/// # Examples
+///
+/// ```
+/// # use divisible_by::{divisible_by_7};
+/// assert!(divisible_by_7(21));
+/// assert!(!divisible_by_7(16));
+/// ```
 pub fn divisible_by_7(n: u64) -> bool {
     if n > 50 {
         let n_as_str = n.to_string();
@@ -61,7 +132,15 @@ pub fn divisible_by_7(n: u64) -> bool {
     }
 }
 
-// Determines if the provided number is divisible by eight (8).
+/// Determines if the provided number is divisible by eight (8).
+///
+/// # Examples
+///
+/// ```
+/// # use divisible_by::{divisible_by_8};
+/// assert!(divisible_by_8(16));
+/// assert!(!divisible_by_8(18));
+/// ```
 pub fn divisible_by_8(n: u64) -> bool {
     if divisible_by_2(n) {
         divisible_by_4(n >> 1)
@@ -70,7 +149,15 @@ pub fn divisible_by_8(n: u64) -> bool {
     }
 }
 
-// Determines if the provided number is divisible by nine (9).
+/// Determines if the provided number is divisible by nine (9).
+///
+/// # Examples
+///
+/// ```
+/// # use divisible_by::{divisible_by_9};
+/// assert!(divisible_by_9(18));
+/// assert!(!divisible_by_9(20));
+/// ```
 pub fn divisible_by_9(n: u64) -> bool {
     if n >= 10 {
         divisible_by_9(digit_sum(n))
@@ -79,12 +166,28 @@ pub fn divisible_by_9(n: u64) -> bool {
     }
 }
 
-// Determines if the provided number is divisible by ten (10).
+/// Determines if the provided number is divisible by ten (10).
+///
+/// # Examples
+///
+/// ```
+/// # use divisible_by::{divisible_by_10};
+/// assert!(divisible_by_10(20));
+/// assert!(!divisible_by_10(22));
+/// ```
 pub fn divisible_by_10(n: u64) -> bool {
     last_digit(n) == 0
 }
 
-// Determines if the provided number is divisible by eleven (11).
+/// Determines if the provided number is divisible by eleven (11).
+///
+/// # Examples
+///
+/// ```
+/// # use divisible_by::{divisible_by_11};
+/// assert!(divisible_by_11(22));
+/// assert!(!divisible_by_11(36));
+/// ```
 pub fn divisible_by_11(n: u64) -> bool {
     if n >= 11 {
         divisible_by_11(alternating_digit_sum(n).unsigned_abs())
@@ -93,7 +196,15 @@ pub fn divisible_by_11(n: u64) -> bool {
     }
 }
 
-// Determines if the provided number is divisible by twelve (12).
+/// Determines if the provided number is divisible by twelve (12).
+///
+/// # Examples
+///
+/// ```
+/// # use divisible_by::{divisible_by_12};
+/// assert!(divisible_by_12(36));
+/// assert!(!divisible_by_12(42));
+/// ```
 pub fn divisible_by_12(n: u64) -> bool {
     divisible_by_3(n) && divisible_by_4(n)
 }
