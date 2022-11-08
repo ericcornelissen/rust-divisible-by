@@ -12,6 +12,7 @@ publish = false
 
 [dev-dependencies]
 bencher = "0.1.5"
+kani-verifier = "0.14.1"
 proptest = "1.0.0"
 proptest-attr-macro = "1.0.0"
 rstest = "0.13.0"
