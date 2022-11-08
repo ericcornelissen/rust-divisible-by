@@ -667,3 +667,20 @@ mod tests {
         assert!(result);
     }
 }
+
+#[cfg(kani)]
+mod verification {
+    use super::*;
+
+    #[kani::proof]
+    pub fn check_divisible_by_0() {
+        let n: u64 = kani::any();
+        assert!(!divisible_by_0(n));
+    }
+
+    #[kani::proof]
+    pub fn check_divisible_by_1() {
+        let n: u64 = kani::any();
+        assert!(divisible_by_1(n));
+    }
+}
