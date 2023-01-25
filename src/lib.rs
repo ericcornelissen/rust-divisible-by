@@ -683,4 +683,34 @@ mod verification {
         let n: u64 = kani::any();
         assert!(divisible_by_1(n));
     }
+
+    #[kani::proof]
+    pub fn check_divisible_by_2() {
+        let n: u64 = kani::any();
+        assert_eq!(divisible_by_2(n), n % 2 == 0);
+    }
+
+    #[kani::proof]
+    pub fn check_divisible_by_4() {
+        let n: u16 = kani::any();
+        assert_eq!(divisible_by_4(n.into()), n % 4 == 0);
+    }
+
+    #[kani::proof]
+    pub fn check_divisible_by_5() {
+        let n: u16 = kani::any();
+        assert_eq!(divisible_by_5(n.into()), n % 5 == 0);
+    }
+
+    #[kani::proof]
+    pub fn check_divisible_by_8() {
+        let n: u8 = kani::any();
+        assert_eq!(divisible_by_8(n.into()), n % 8 == 0);
+    }
+
+    #[kani::proof]
+    pub fn check_divisible_by_10() {
+        let n: u16 = kani::any();
+        assert_eq!(divisible_by_10(n.into()), n % 10 == 0);
+    }
 }
