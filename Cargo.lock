@@ -4,9 +4,9 @@ version = 3
 
 [[package]]
 name = "anyhow"
-version = "1.0.66"
+version = "1.0.68"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "216261ddc8289130e551ddcd5ce8a064710c0d064a4d2895c67151c92b5443f6"
+checksum = "2cb2f989d18dd141ab8ae82f64d1a8cdd37e0840f73a406896cf5e99502fab61"
 
 [[package]]
 name = "async-attributes"
@@ -436,9 +436,9 @@ dependencies = [
 
 [[package]]
 name = "kani-verifier"
-version = "0.14.1"
+version = "0.20.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9c34b8ae8618b8772f94de72a5c2be63d9bb96f914a8d46f41296ff8ff57ab6b"
+checksum = "7c55ce139ebd3aed743a981cab1b8d2146a25e944a5cd19cc5b149b54e24e40e"
 dependencies = [
  "anyhow",
  "home",

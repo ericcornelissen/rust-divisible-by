@@ -74,15 +74,39 @@ mod tests {
 
     #[proptest]
     fn last_digit_returns_a_single_digit(n: u64) {
-        assert!(matches!(
-            last_digit(n),
-            0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
-        ));
+        assert!(last_digit(n) < 10);
     }
 
     #[proptest]
     fn last_digit_returns_something_n_ends_with(n: u64) {
         let result = last_digit(n).to_string();
         assert!(n.to_string().ends_with(&result[..]));
+    }
+}
+
+#[cfg(kani)]
+mod verification {
+    use super::*;
+
+    #[kani::proof]
+    #[kani::unwind(6)]
+    pub fn check_alternating_digit_sum() {
+        let n: u16 = kani::any();
+        kani::assume(n > 10);
+        assert!(alternating_digit_sum(n.into()).unsigned_abs() < n.into());
+    }
+
+    #[kani::proof]
+    #[kani::unwind(6)]
+    pub fn check_digit_sum() {
+        let n: u16 = kani::any();
+        kani::assume(n > 10);
+        assert!(digit_sum(n.into()) < n.into());
+    }
+
+    #[kani::proof]
+    pub fn check_last_digit() {
+        let n: u64 = kani::any();
+        assert!(last_digit(n) < 10);
     }
 }
