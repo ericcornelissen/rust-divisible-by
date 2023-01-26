@@ -128,7 +128,7 @@ pub fn divisible_by_7(n: u64) -> bool {
         let next_n = (last_digit(n) * 5) + rest;
         divisible_by_7(next_n)
     } else {
-        matches!(n, 7 | 14 | 21 | 28 | 35 | 42 | 49)
+        matches!(n, 0 | 7 | 14 | 21 | 28 | 35 | 42 | 49)
     }
 }
 
@@ -436,6 +436,7 @@ mod tests {
     }
 
     #[rstest]
+    #[case(0)]
     #[case(56)]
     #[case(434)]
     #[case(6468)]
@@ -665,5 +666,94 @@ mod tests {
         let n = 12 * (base as u64);
         let result = divisible_by_12(n);
         assert!(result);
+    }
+}
+
+#[cfg(kani)]
+mod verification {
+    use super::*;
+
+    #[kani::proof]
+    pub fn check_divisible_by_0() {
+        let n: u64 = kani::any();
+        assert!(!divisible_by_0(n));
+    }
+
+    #[kani::proof]
+    pub fn check_divisible_by_1() {
+        let n: u64 = kani::any();
+        assert!(divisible_by_1(n));
+    }
+
+    #[kani::proof]
+    pub fn check_divisible_by_2() {
+        let n: u64 = kani::any();
+        assert_eq!(divisible_by_2(n), n % 2 == 0);
+    }
+
+    #[kani::proof]
+    #[kani::unwind(1)]
+    pub fn check_divisible_by_3() {
+        let n: u64 = kani::any();
+        assert_eq!(divisible_by_3(n), n % 3 == 0);
+    }
+
+    #[kani::proof]
+    pub fn check_divisible_by_4() {
+        let n: u16 = kani::any();
+        assert_eq!(divisible_by_4(n.into()), n % 4 == 0);
+    }
+
+    #[kani::proof]
+    pub fn check_divisible_by_5() {
+        let n: u16 = kani::any();
+        assert_eq!(divisible_by_5(n.into()), n % 5 == 0);
+    }
+
+    #[kani::proof]
+    #[kani::unwind(1)]
+    pub fn check_divisible_by_6() {
+        let n: u64 = kani::any();
+        assert_eq!(divisible_by_6(n), n % 6 == 0);
+    }
+
+    #[kani::proof]
+    #[kani::unwind(1)]
+    pub fn check_divisible_by_7() {
+        let n: u64 = kani::any();
+        assert_eq!(divisible_by_7(n), n % 7 == 0);
+    }
+
+    #[kani::proof]
+    pub fn check_divisible_by_8() {
+        let n: u8 = kani::any();
+        assert_eq!(divisible_by_8(n.into()), n % 8 == 0);
+    }
+
+    #[kani::proof]
+    #[kani::unwind(1)]
+    pub fn check_divisible_by_9() {
+        let n: u64 = kani::any();
+        assert_eq!(divisible_by_9(n), n % 9 == 0);
+    }
+
+    #[kani::proof]
+    pub fn check_divisible_by_10() {
+        let n: u16 = kani::any();
+        assert_eq!(divisible_by_10(n.into()), n % 10 == 0);
+    }
+
+    #[kani::proof]
+    #[kani::unwind(1)]
+    pub fn check_divisible_by_11() {
+        let n: u64 = kani::any();
+        assert_eq!(divisible_by_11(n), n % 11 == 0);
+    }
+
+    #[kani::proof]
+    #[kani::unwind(1)]
+    pub fn check_divisible_by_12() {
+        let n: u64 = kani::any();
+        assert_eq!(divisible_by_12(n), n % 12 == 0);
     }
 }
