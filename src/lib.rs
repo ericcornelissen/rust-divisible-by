@@ -128,7 +128,7 @@ pub fn divisible_by_7(n: u64) -> bool {
         let next_n = (last_digit(n) * 5) + rest;
         divisible_by_7(next_n)
     } else {
-        matches!(n, 7 | 14 | 21 | 28 | 35 | 42 | 49)
+        matches!(n, 0 | 7 | 14 | 21 | 28 | 35 | 42 | 49)
     }
 }
 
@@ -436,6 +436,7 @@ mod tests {
     }
 
     #[rstest]
+    #[case(0)]
     #[case(56)]
     #[case(434)]
     #[case(6468)]
@@ -714,6 +715,13 @@ mod verification {
     pub fn check_divisible_by_6() {
         let n: u64 = kani::any();
         assert_eq!(divisible_by_6(n), n % 6 == 0);
+    }
+
+    #[kani::proof]
+    #[kani::unwind(1)]
+    pub fn check_divisible_by_7() {
+        let n: u64 = kani::any();
+        assert_eq!(divisible_by_7(n), n % 7 == 0);
     }
 
     #[kani::proof]
