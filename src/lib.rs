@@ -122,8 +122,8 @@ pub fn divisible_by_7(n: u64) -> bool {
         let n_as_str = n.to_string();
         let n_len = n_as_str.len();
 
-        let rest_as_str = n_as_str.get(0..n_len - 1).unwrap();
-        let rest = rest_as_str.parse::<u64>().unwrap();
+        let rest_str = unsafe { n_as_str.get(0..n_len - 1).unwrap_unchecked() };
+        let rest = unsafe { rest_str.parse::<u64>().unwrap_unchecked() };
 
         let next_n = (last_digit(n) * 5) + rest;
         divisible_by_7(next_n)
